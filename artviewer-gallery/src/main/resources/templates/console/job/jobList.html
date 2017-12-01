@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="zh-CN"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/common_header :: common_header(~{::title})">
+    <title>工作列表</title>
+</head>
+<body>
+
+<!-- START CONTENT -->
+
+<section class="wrapper main-wrapper row" style=''>
+
+    <div class="col-lg-12">
+        <section class="box ">
+            <header class="panel_header">
+                <h2 class="title pull-left">工作列表</h2>
+                <div class="actions panel_actions pull-right">
+                    <a class="box_toggle fa fa-chevron-down"></a>
+                    <a class="box_setting fa fa-cog" data-toggle="modal" href="#section-settings"></a>
+                    <a class="box_close fa fa-times"></a>
+                </div>
+            </header>
+            <div class="content-body">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <table class="table table-bordered">
+                            <thead>
+                            <tr>
+                                <th>Id</th>
+                                <th>工作名</th>
+                                <th>描述</th>
+                                <th>Bean名称</th>
+                                <th>方法名</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr scope="row" th:each="job : ${jobs.list}">
+                                <td th:text="${job.id}">Airi Satou</td>
+                                <td th:text="${job.jobName}">Accountant</td>
+                                <td th:text="${job.description}">Tokyo</td>
+                                <td th:text="${job.springBeanName}">2008/11/28</td>
+                                <td th:text="${job.methodName}">$162,700</td>
+                            </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-6">
+                        <div class="dataTables_info" id="example-1_info" role="status"
+                             aria-live="polite">Showing 1 to 10 of 30 entries
+                        </div>
+                    </div>
+                    <div class="col-xs-6">
+                        <div class="dataTables_paginate paging_bootstrap">
+                            <ul class="pagination">
+                                <li>
+                                    <a th:href="@{/jobs/list(pageNum=1,pageSize=2)}">首页</a>
+                                </li>
+                                <li>
+                                    <a th:if="${not jobs.isFirstPage}"
+                                       th:href="@{/jobs/list(pageNum=${jobs.pageNum-1},pageSize=${jobs.pageSize})}">上一页</a>
+                                    <a th:if="${jobs.isFirstPage}"
+                                       href="javascript:void(0);">上一页</a>
+                                </li>
+                                <li>
+                                    <a th:if="${not jobs.isLastPage}"
+                                       th:href="@{/jobs/list(pageNum=${jobs.pageNum+1},pageSize=${jobs.pageSize})}">下一页</a>
+                                    <a th:if="${jobs.isLastPage}"
+                                       href="javascript:void(0);">下一页</a>
+                                </li>
+                                <li>
+                                    <a th:href="@{/jobs/list(pageNum=${jobs.pages},pageSize=2)}"
+                                       href="javascript:void(0);">尾页</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</section>
+
+
+<script type="text/javascript">
+    $(function () {
+        $(".delete-obj-href").deleteFun();
+    });
+
+</script>
+</body>
+</html>
